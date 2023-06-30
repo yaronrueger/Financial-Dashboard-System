@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("Excelreader");
         String graphList[] = {"Gesamtansicht", "Einzelansicht", "Tabelle"};
-        TextView text = (TextView) findViewById(R.id.textView);
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, R.layout.activity_main1, graphList);
 
         ListView listView = (ListView) findViewById(R.id.listView);
