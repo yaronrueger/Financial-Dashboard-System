@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.renderscript.ScriptGroup;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -44,14 +45,10 @@ public class Table extends AppCompatActivity {
         secondBlockExcel = new SecondBlockExcel(getResources().openRawResource(R.raw.mappe1));
         thirdBlockExcel = new ThirdBlockExcel(getResources().openRawResource(R.raw.mappe1));
 
-
-
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollLayout);
 
         TextView header = new TextView(getApplicationContext());
         TextView subHeader = new TextView(getApplicationContext());
-        TextView sumofMonths = new TextView(getApplicationContext());
-        TextView sumofMonthsValue = new TextView(getApplicationContext());
         TableLayout tableLayout = new TableLayout(getApplicationContext());
 
         Space space = new Space(this);
@@ -62,7 +59,7 @@ public class Table extends AppCompatActivity {
         spaceHeader.setMinimumHeight(50);
 
         LinearLayout linearLayout = new LinearLayout(this);
-        LinearLayout linearLayoutHorizontal = new LinearLayout(this);
+        LinearLayout linearLayoutSumOfTheYear = firstBlockExcel.getSumOfTheYearLinearLayout(getApplicationContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         header.setText(firstBlockExcel.getBlockHeader());
@@ -79,112 +76,24 @@ public class Table extends AppCompatActivity {
 
         linearLayout.addView(subHeader);
         linearLayout.addView(spaceSubHeader);
-
-
         //set Months and Values:
         //first Months
-        TableRow monthTableRow1 = new TableRow(this);
-        TableRow valueTableRow1 = new TableRow(this);
+        TableRow monthTableRow1 = firstBlockExcel.getMonthsTableRow1(getApplicationContext());
+        TableRow valueTableRow1 = firstBlockExcel.getMonthsValueTableRow1(getApplicationContext());
         //last Months
-        TableRow monthTableRow2 = new TableRow(this);
-        TableRow valueTableRow2 = new TableRow(this);
-        //setup first Months
-        for(int i = 0; i <firstBlockExcel.getMonths().size()/2; i++){
-            TextView tv = new TextView(getApplicationContext());
-            tv.setText(firstBlockExcel.getMonths().get(i));
+        TableRow monthTableRow2 = firstBlockExcel.getMonthsTableRow2(getApplicationContext());
+        TableRow valueTableRow2 = firstBlockExcel.getMonthsValueTableRow2(getApplicationContext());
 
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMarginEnd(30);
-            tv.setLayoutParams(lp);
-
-            tv.setTextColor(getResources().getColor(R.color.subtext));
-            monthTableRow1.addView(tv);
-        }
-
-        monthTableRow1.setGravity(Gravity.CENTER);
-        monthTableRow1.setBackgroundColor(getResources().getColor(R.color.months));
         tableLayout.addView(monthTableRow1);
-
-        //setup first MonthsValues
-        for(int i = 0; i <firstBlockExcel.getMonths().size()/2; i++){
-            TextView tv = new TextView(getApplicationContext());
-            tv.setText((String) firstBlockExcel.getMonthMoneyValues().get(i).toString());
-
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMarginEnd(30);
-            tv.setLayoutParams(lp);
-
-            tv.setTextColor(Color.WHITE);
-            valueTableRow1.addView(tv);
-        }
-        //some Frontendstuff
-        valueTableRow1.setGravity(Gravity.CENTER);
-        valueTableRow1.setBackgroundColor(getResources().getColor(R.color.values));
         tableLayout.addView(valueTableRow1);
-        //setup last Months
-        for(int i = firstBlockExcel.getMonths().size()/2; i <=firstBlockExcel.getMonths().size()-1; i++){
-            TextView tv = new TextView(getApplicationContext());
-            tv.setText(firstBlockExcel.getMonths().get(i));
-
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMarginEnd(30);
-            tv.setLayoutParams(lp);
-
-            tv.setTextColor(getResources().getColor(R.color.subtext));
-            monthTableRow2.addView(tv);
-        }
-
-        monthTableRow2.setGravity(Gravity.CENTER);
-        monthTableRow2.setBackgroundColor(getResources().getColor(R.color.months));
         tableLayout.addView(monthTableRow2);
-
-        //setup last MonthsValues
-        for(int i = firstBlockExcel.getMonths().size()/2; i <=firstBlockExcel.getMonths().size()-1; i++){
-            TextView tv = new TextView(getApplicationContext());
-            tv.setText((String) firstBlockExcel.getMonthMoneyValues().get(i).toString());
-
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMarginEnd(30);
-            tv.setLayoutParams(lp);
-
-            tv.setTextColor(Color.WHITE);
-            valueTableRow2.addView(tv);
-        }
-        //some Frontendstuff
-        valueTableRow2.setGravity(Gravity.CENTER);
-        valueTableRow2.setBackgroundColor(getResources().getColor(R.color.values));
         tableLayout.addView(valueTableRow2);
         //set firstBlock to mainDisplay
         linearLayout.addView(tableLayout);
 
-        sumofMonths.setText(firstBlockExcel.getSumOfYearHeader()+":");
-        sumofMonths.setTextColor(getResources().getColor(R.color.subtext));
-        sumofMonths.setBackgroundColor(getResources().getColor(R.color.months));
-        sumofMonths.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        ));
-        sumofMonths.setGravity(Gravity.CENTER);
-
-        sumofMonthsValue.setText(""+firstBlockExcel.getSumOfYearValue());
-        sumofMonthsValue.setTextColor(Color.BLACK);
-        sumofMonthsValue.setLayoutParams(new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        ));
-        sumofMonthsValue.setGravity(Gravity.CENTER);
-        sumofMonthsValue.setTypeface(null, Typeface.BOLD);
-
-        linearLayoutHorizontal.addView(sumofMonths);
-        linearLayoutHorizontal.addView(sumofMonthsValue);
-        sumofMonthsValue.setBackgroundColor(Color.GREEN);
-        linearLayoutHorizontal.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayoutHorizontal.setGravity(Gravity.CENTER);
-        linearLayout.addView(linearLayoutHorizontal);
-
+        linearLayout.addView(linearLayoutSumOfTheYear);
         linearLayout.addView(space);
+
 
         TextView secondBlockHeader = new TextView(this);
         secondBlockHeader.setText(secondBlockExcel.getBlockHeader());
@@ -197,69 +106,20 @@ public class Table extends AppCompatActivity {
         linearLayout.addView(secondBlockHeader);
         linearLayout.addView(spaceHeader2);
 
+        for(int i = 0; i<=secondBlockExcel.getSubHeaders().size()-1; i++){
+            TextView subHeaderSecondBlock = new TextView(this);
+            Space spacebetween = new Space(this);
+            spacebetween.setMinimumHeight(50);
+            subHeaderSecondBlock.setText(""+(i+1)+"."+secondBlockExcel.getSubHeaders().get(i)+":");
+            subHeaderSecondBlock.setTextColor(Color.WHITE);
+            subHeaderSecondBlock.setTextSize(14);
+            linearLayout.addView(subHeaderSecondBlock);
+            linearLayout.addView(spacebetween);
 
-        ArrayList<String> secondBlocksubHeaders = new ArrayList<String>();
-        secondBlocksubHeaders = secondBlockExcel.getSubHeaders();
+            linearLayout.addView(secondBlockExcel.getSubHeaderValueTable(getApplicationContext(),i));
+            linearLayout.addView(secondBlockExcel.getSumOfTheYearLinearLayout(getApplicationContext(),i));
 
-
-        TextView subHeader1 = new TextView(this);
-        Space spacesubHeader1 = new Space(this);
-        spacesubHeader1.setMinimumHeight(50);
-        TextView subHeader2 = new TextView(this);
-        Space spacesubHeader2 = new Space(this);
-        spacesubHeader2.setMinimumHeight(50);
-        TextView subHeader3 = new TextView(this);
-        Space spacesubHeader3 = new Space(this);
-        spacesubHeader3.setMinimumHeight(50);
-        TextView subHeader4 = new TextView(this);
-        Space spacesubHeader4 = new Space(this);
-        spacesubHeader4.setMinimumHeight(50);
-        TextView subHeader5 = new TextView(this);
-        Space spacesubHeader5 = new Space(this);
-        spacesubHeader5.setMinimumHeight(50);
-        TextView subHeader6 = new TextView(this);
-        Space spacesubHeader6 = new Space(this);
-        spacesubHeader6.setMinimumHeight(50);
-
-        subHeader1.setText("1."+secondBlockExcel.getSubHeaders().get(0)+":");
-        subHeader1.setTextColor(Color.WHITE);
-        subHeader1.setTextSize(14);
-        subHeader2.setText("2."+secondBlockExcel.getSubHeaders().get(1)+":");
-        subHeader2.setTextColor(Color.WHITE);
-        subHeader2.setTextSize(14);
-        subHeader3.setText("3."+secondBlockExcel.getSubHeaders().get(2)+":");
-        subHeader3.setTextColor(Color.WHITE);
-        subHeader3.setTextSize(14);
-        subHeader4.setText("4."+secondBlockExcel.getSubHeaders().get(3)+":");
-        subHeader4.setTextColor(Color.WHITE);
-        subHeader4.setTextSize(14);
-        subHeader5.setText("5."+secondBlockExcel.getSubHeaders().get(4)+":");
-        subHeader5.setTextColor(Color.WHITE);
-        subHeader5.setTextSize(14);
-        subHeader6.setText("6."+secondBlockExcel.getSubHeaders().get(5)+":");
-        subHeader6.setTextColor(Color.WHITE);
-        subHeader6.setTextSize(14);
-
-        linearLayout.addView(subHeader1);
-        linearLayout.addView(spacesubHeader1);
-
-        linearLayout.addView(subHeader2);
-        linearLayout.addView(spacesubHeader2);
-
-        linearLayout.addView(subHeader3);
-        linearLayout.addView(spacesubHeader3);
-
-        linearLayout.addView(subHeader4);
-        linearLayout.addView(spacesubHeader4);
-
-        linearLayout.addView(subHeader5);
-        linearLayout.addView(spacesubHeader5);
-
-        linearLayout.addView(subHeader6);
-        linearLayout.addView(spacesubHeader6);
-
-
-
+        }
 
         TextView thirdBlockHeader = new TextView(this);
         thirdBlockHeader.setText(thirdBlockExcel.getBlockHeader());
@@ -272,19 +132,21 @@ public class Table extends AppCompatActivity {
         linearLayout.addView(thirdBlockHeader);
         linearLayout.addView(spaceHeader3);
 
+        //TODO Gesamtsumme einbauen
         for(int i = 0; i <= thirdBlockExcel.getSubHeaders().size()-1;i++){
             TextView subHeaderThirdBlock = new TextView(this);
-            subHeaderThirdBlock.setText(""+(i+1)+"."+thirdBlockExcel.getSubHeaders().get(i));
+            Space spacebetween = new Space(this);
+            subHeaderThirdBlock.setText(""+(i+1)+"."+thirdBlockExcel.getSubHeaders().get(i)+":");
             subHeaderThirdBlock.setTextColor(Color.WHITE);
             subHeaderThirdBlock.setTextSize(14);
             linearLayout.addView(subHeaderThirdBlock);
-            Space spacebetween = new Space(this);
             spacebetween.setMinimumHeight(50);
             linearLayout.addView(spacebetween);
+
+            linearLayout.addView(thirdBlockExcel.getSubHeaderValueTable(getApplicationContext(),i));
+            linearLayout.addView(thirdBlockExcel.getSumOfTheYearLinearLayout(getApplicationContext(),i));
+
         }
-        //TODO Summe gesamtes Jahr einzeln ändern
-
-
 
         scrollView.addView(linearLayout);
     }

@@ -2,6 +2,7 @@ package com.example.excelreader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 public class OneGraphic extends AppCompatActivity {
@@ -12,5 +13,7 @@ public class OneGraphic extends AppCompatActivity {
         setContentView(R.layout.activity_one_graphic);
 
         setTitle("OneGraphic");
+
     }
+
 }

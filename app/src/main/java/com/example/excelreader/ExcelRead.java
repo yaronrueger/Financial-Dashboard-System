@@ -13,13 +13,23 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.*;
+
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public abstract class ExcelRead {
     Workbook workbook;
     Sheet sheet;
     Row row;
     Cell cell;
+
+    static InputStream data;
 
     public ExcelRead(InputStream is){
         try {
@@ -67,6 +77,44 @@ public abstract class ExcelRead {
         return months;
     }
 
+    public TableRow getMonthsTableRow1(Context parent){
+        TableRow monthTableRow = new TableRow(parent.getApplicationContext());
+        for(int i = 0; i <this.getMonths().size()/2; i++){
+            TextView tv = new TextView(parent.getApplicationContext());
+            tv.setText(this.getMonths().get(i));
+
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMarginEnd(30);
+            tv.setLayoutParams(lp);
+
+            tv.setTextColor(parent.getResources().getColor(R.color.subtext));
+            tv.setGravity(Gravity.CENTER);
+            monthTableRow.addView(tv);
+        }
+        //monthTableRow.setGravity(Gravity.CENTER);
+        monthTableRow.setBackgroundColor(parent.getResources().getColor(R.color.months));
+        return monthTableRow;
+    }
+
+    public TableRow getMonthsTableRow2(Context parent){
+        TableRow monthTableRow = new TableRow(parent.getApplicationContext());
+        for(int i = this.getMonths().size()/2; i <=this.getMonths().size()-1; i++){
+            TextView tv = new TextView(parent.getApplicationContext());
+            tv.setText(this.getMonths().get(i));
+
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMarginEnd(30);
+            tv.setLayoutParams(lp);
+
+            tv.setTextColor(parent.getResources().getColor(R.color.subtext));
+            tv.setGravity(Gravity.CENTER);
+            monthTableRow.addView(tv);
+        }
+        //monthTableRow.setGravity(Gravity.CENTER);
+        monthTableRow.setBackgroundColor(parent.getResources().getColor(R.color.months));
+        return monthTableRow;
+    }
+
     //Summe Jahr <akutelles Jahr>
     public String getSumOfYearHeader(){
         return getCellData(3,14).getValueString();
@@ -75,52 +123,4 @@ public abstract class ExcelRead {
     public abstract String getBlockHeader();
 
     //TODO Plan Methoden 3x (ganz Rechts)
-
-    /*
-     public int getlengthRowAll(){
-        return sheet.getLastRowNum() +1;
-    }
-     */
-
-   /*
-    public int getLengthOneRow(int i){
-        row = sheet.getRow(i);
-        return row.getLastCellNum();
-    }
-    */
-/*
-    public ArrayList<ArrayList<String>> getSheet(){
-        ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>>();
-        for(int i = 0; i < sheet.getLastRowNum() +1; i++) {
-            row = sheet.getRow(i);
-            matrix.add(new ArrayList<String>());
-            for(int j = 0; j < row.getLastCellNum(); j++){
-                cell = row.getCell(j);
-                matrix.get(i).add(getCellData(cell));
-             }
-         }
-         return matrix;
-    }
-*/
-    /*
-    public ArrayList<String> getSheetRow(int rowNum){
-        ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>>();
-        matrix = this.getSheet();
-        ArrayList<String> matrixRow = new ArrayList<String>();
-        matrixRow = matrix.get(rowNum);
-        return matrixRow;
-    }
-     */
-
-    /*
-    public String getSheetCell(int zeile, int spalte){
-        ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>>();
-        ArrayList<String> matrixRow = new ArrayList<String>();
-        String matrixCell;
-        matrix = this.getSheet();
-        matrixRow = matrix.get(zeile);
-        matrixCell = matrixRow.get(spalte);
-        return matrixCell;
-    }
-     */
     }
