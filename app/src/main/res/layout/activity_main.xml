@@ -30,11 +30,35 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="49dp"
         android:layout_marginEnd="108dp"
         android:gravity="center"
         android:text="ExcelReader"
-        android:textSize="27dp"
+        android:textColor="@color/white"
+        android:textSize="27dp" />
+
+    <TextView
+        android:id="@+id/textViewAdd"
+        android:layout_width="159dp"
+        android:layout_height="49dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="70dp"
+        android:gravity="center"
+        android:text="Datei auswählen"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="231dp"
+        android:backgroundTint="#3d3d3d"
+        android:text="Add"
         android:textColor="@color/white"/>
 
 </RelativeLayout>

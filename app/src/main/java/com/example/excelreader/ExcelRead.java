@@ -29,8 +29,6 @@ public abstract class ExcelRead {
     Row row;
     Cell cell;
 
-    static InputStream data;
-
     public ExcelRead(InputStream is){
         try {
             workbook = new XSSFWorkbook(is);

@@ -3,13 +3,29 @@ package com.example.excelreader;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.provider.CalendarContract;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.apache.poi.sl.usermodel.Line;
 import org.apache.poi.ss.formula.functions.T;
@@ -125,6 +141,80 @@ public class FirstBlockExcel extends ExcelRead {
         }
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setGravity(Gravity.CENTER);
+        return linearLayout;
+    }
+
+    public BarChart getBarChart(Context parent) {
+
+        BarChart barChart = new BarChart(parent);
+        XAxis xAxis = barChart.getXAxis();
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        String[] barLabels = getMonths().toArray(new String[0]);
+
+        YAxis leftYAxis = barChart.getAxisLeft();
+        YAxis rightYAxis = barChart.getAxisRight();
+
+        for (int i = 0; i <= getMonths().size() - 1; i++) {
+            entries.add(new BarEntry(i, getMonthMoneyValues().get(i).floatValue()));
+        }
+
+        BarDataSet dataSet = new BarDataSet(entries, "");
+        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        dataSet.setStackLabels(barLabels);
+        dataSet.setValueTextColor(Color.WHITE);
+
+        BarData barData = new BarData(dataSet);
+        barChart.setData(barData);
+
+        barChart.getDescription().setEnabled(false);
+        barChart.setLayoutParams(new ViewGroup.LayoutParams(950, 950));
+
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(barLabels));
+        xAxis.setLabelCount(barLabels.length);
+        xAxis.setTextColor(Color.WHITE);
+        xAxis.setLabelRotationAngle(300f);
+
+        leftYAxis.setTextColor(Color.WHITE);
+        rightYAxis.setEnabled(false);
+
+        barChart.setFitBars(true);
+
+        // Deaktiviere das Farbregister
+        Legend legend = barChart.getLegend();
+        legend.setEnabled(false);
+
+        barChart.invalidate();
+        barChart.animateY(1400, Easing.EaseInCubic);
+
+
+        return barChart;
+    }
+
+    public LinearLayout getMonthMoneyLinearLayout(Context parent){
+        LinearLayout linearLayout = new LinearLayout(parent.getApplicationContext());
+        Space space = new Space(parent.getApplicationContext());
+        Space space2 = new Space(parent.getApplicationContext());
+        TextView textView = new TextView(parent);
+
+        linearLayout.setGravity(Gravity.CENTER);
+        linearLayout.setPadding(0, 50, 0, 0);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        textView.setText("Monatseinkommen");
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(Color.WHITE);
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setCornerRadius(20);
+        shape.setColor(Color.BLACK);
+        linearLayout.setBackground(shape);
+        linearLayout.addView(textView);
+        space2.setMinimumHeight(50);
+        linearLayout.addView(space2);
+        linearLayout.addView(getBarChart(parent));
+        space.setMinimumHeight(50);
+        linearLayout.addView(space);
         return linearLayout;
     }
 }

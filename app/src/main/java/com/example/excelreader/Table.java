@@ -24,6 +24,7 @@ import android.widget.TextView;
 import org.apache.poi.ss.formula.functions.T;
 import org.w3c.dom.Text;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
@@ -41,9 +42,14 @@ public class Table extends AppCompatActivity {
         FirstBlockExcel firstBlockExcel;
         SecondBlockExcel secondBlockExcel;
         ThirdBlockExcel thirdBlockExcel;
-        firstBlockExcel = new FirstBlockExcel(getResources().openRawResource(R.raw.mappe1));
-        secondBlockExcel = new SecondBlockExcel(getResources().openRawResource(R.raw.mappe1));
-        thirdBlockExcel = new ThirdBlockExcel(getResources().openRawResource(R.raw.mappe1));
+        try {
+            firstBlockExcel = new FirstBlockExcel(getApplicationContext().openFileInput("mappe1.xlsx"));
+            secondBlockExcel = new SecondBlockExcel(getApplicationContext().openFileInput("mappe1.xlsx"));
+            thirdBlockExcel = new ThirdBlockExcel(getApplicationContext().openFileInput("mappe1.xlsx"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
 
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollLayout);
 

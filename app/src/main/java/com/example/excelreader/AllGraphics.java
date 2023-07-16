@@ -1,132 +1,133 @@
 package com.example.excelreader;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-
+import android.content.Context;
 import android.graphics.Color;
-
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
+import android.widget.Space;
 import android.widget.TextView;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.apache.poi.sl.usermodel.Line;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AllGraphics extends AppCompatActivity {
-
-    private PieChart pieChart;
-    private SeekBar seekBarX, seekBarY;
-    private TextView tvX, tvY;
 
     FirstBlockExcel firstBlockExcel;
     SecondBlockExcel secondBlockExcel;
     ThirdBlockExcel thirdBlockExcel;
     ScrollView scrollView;
+    LinearLayout linearLayoutBarCharts;
+    LinearLayout linearLayoutPieCharts;
+    LinearLayout linearLayoutMain;
+    Button buttonBar;
+    Button buttonPie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_graphics);
 
-        firstBlockExcel = new FirstBlockExcel(getResources().openRawResource(R.raw.mappe1));
-        secondBlockExcel = new SecondBlockExcel(getResources().openRawResource(R.raw.mappe1));
-        thirdBlockExcel = new ThirdBlockExcel(getResources().openRawResource(R.raw.mappe1));
+        linearLayoutMain = new LinearLayout(this);
+        linearLayoutMain.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutMain.setGravity(Gravity.CENTER);
+
+        buttonBar = new Button(this);
+        buttonBar.setGravity(Gravity.CENTER);
+        buttonBar.setText("Show Bars");
+        buttonBar.setBackgroundColor(getResources().getColor(R.color.elements));
+        buttonBar.setTextColor(Color.WHITE);
+        buttonBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutVisible(linearLayoutBarCharts);
+            }
+        });
+
+        buttonPie = new Button(this);
+        buttonPie.setGravity(Gravity.CENTER);
+        buttonPie.setText("Show Pies");
+        buttonPie.setBackgroundColor(getResources().getColor(R.color.elements));
+        buttonPie.setTextColor(Color.WHITE);
+        buttonPie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutVisible(linearLayoutPieCharts);
+            }
+        });
+
+        linearLayoutBarCharts = new LinearLayout(getApplicationContext());
+        linearLayoutBarCharts.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutBarCharts.setGravity(Gravity.CENTER);
+        try {
+            firstBlockExcel = new FirstBlockExcel(getApplicationContext().openFileInput("mappe1.xlsx"));
+            secondBlockExcel = new SecondBlockExcel(getApplicationContext().openFileInput("mappe1.xlsx"));
+            thirdBlockExcel = new ThirdBlockExcel(getApplicationContext().openFileInput("mappe1.xlsx"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         scrollView = findViewById(R.id.scrollView);
+        scrollView.setPadding(100, 0, 95, 0);
+        scrollView.setVerticalScrollBarEnabled(false);
 
-        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-        linearLayout.setGravity(Gravity.CENTER);
-        pieChart = new PieChart(getApplicationContext());
-        pieChart.setLayoutParams(new ViewGroup.LayoutParams(900, 900));
-        pieChart.setHoleColor(Color.TRANSPARENT);
-        pieChart.setTransparentCircleRadius(0f);
-        pieChart.setDrawEntryLabels(false);
-        setupPieChart();
-        loadPieChartData();
-
-        linearLayout.addView(pieChart);
-        scrollView.addView(linearLayout);
-
-        /*
-        constraintLayout = (ConstraintLayout) findViewById(R.id.constraint);
-        constraintLayoutInner = new ConstraintLayout(this);
-
-        pieChart = new PieChart(getApplicationContext());
-        pieChart.setLayoutParams(new ViewGroup.LayoutParams(900, 900));
-        constraintLayout.setForegroundGravity(Gravity.CENTER);
-        constraintLayoutInner.setPadding(300,200,0,0);
-
-        constraintLayoutInner.addView(pieChart);
-        constraintLayout.addView(constraintLayoutInner);
-        setupPieChart();
-        loadPieChartData();
-         */
-    }
-    private void setupPieChart() {
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setUsePercentValues(true);
-        //pieChart.setEntryLabelTextSize(9);
-        //pieChart.setEntryLabelColor(Color.BLACK);
-        //pieChart.setCenterText("Spending by Category");
-        //pieChart.setCenterTextSize(20);
-        pieChart.getDescription().setEnabled(false);
-
-
-        Legend l = pieChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setEnabled(true);
-        l.setTextColor(Color.WHITE);
-    }
-
-    private void loadPieChartData() {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(10, "Einkommen 1"));
-        entries.add(new PieEntry(10, "Einkommen 2"));
-        entries.add(new PieEntry(10, "Einkommen 3"));
-        entries.add(new PieEntry(10, "Einkommen 4"));
-        entries.add(new PieEntry(10, "Einkommen 5"));
-        entries.add(new PieEntry(50, "Einkommen 6"));
-
-        ArrayList<Integer> colors = new ArrayList<>();
-        for (int color: ColorTemplate.JOYFUL_COLORS) {
-            colors.add(color);
+        linearLayoutBarCharts.addView(firstBlockExcel.getMonthMoneyLinearLayout(getApplicationContext()));
+        linearLayoutBarCharts.addView(getSpace(this));
+        for(int i = 0; i<=secondBlockExcel.getSubHeadersValues().size()-1; i++){
+            linearLayoutBarCharts.addView(secondBlockExcel.getMonthMoneyLinearLayout(i,getApplicationContext()));
+            linearLayoutBarCharts.addView(getSpace(this));
+        }
+        for(int i = 0; i<=thirdBlockExcel.getSubHeadersValues().size()-1; i++){
+            linearLayoutBarCharts.addView(thirdBlockExcel.getMonthMoneyLinearLayout(i,getApplicationContext()));
+            linearLayoutBarCharts.addView(getSpace(this));
         }
 
-        for (int color: ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color);
+        linearLayoutMain.addView(buttonBar);
+        linearLayoutMain.addView(getSpace(this));
+        linearLayoutMain.addView(linearLayoutBarCharts);
+        layoutVisible(linearLayoutBarCharts);
+
+        linearLayoutPieCharts = new LinearLayout(this);
+        linearLayoutPieCharts.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutPieCharts.setGravity(Gravity.CENTER);
+        linearLayoutPieCharts.addView(firstBlockExcel.getMonthMoneyLinearLayout(this));
+
+        linearLayoutMain.addView(buttonPie);
+        linearLayoutMain.addView(getSpace(this));
+        linearLayoutMain.addView(linearLayoutPieCharts);
+        layoutVisible(linearLayoutPieCharts);
+
+        scrollView.addView(linearLayoutMain);
+    }
+
+    public Space getSpace(Context parent){
+        Space space = new Space(parent);
+        space.setMinimumHeight(60);
+        return space;
+    }
+    public void layoutVisible(LinearLayout linearLayout){
+        if(linearLayout.getVisibility() == View.VISIBLE){
+            linearLayout.setVisibility(View.GONE);
         }
-
-        PieDataSet dataSet = new PieDataSet(entries, "dataSet");
-        dataSet.setColors(colors);
-
-        PieData data = new PieData(dataSet);
-        data.setDrawValues(true);
-        data.setValueFormatter(new PercentFormatter(pieChart));
-        data.setValueTextSize(12f);
-        data.setValueTextColor(Color.BLACK);
-
-        pieChart.setData(data);
-        pieChart.invalidate();
-
-        pieChart.animateY(1400, Easing.EaseInOutQuad);
+        else{
+            linearLayout.setVisibility(View.VISIBLE);
+        }
     }
 }
