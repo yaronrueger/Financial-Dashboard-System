@@ -20,4 +20,4 @@ cd Financial-Dashboard-System
 ```
 
 ### Usage
-Create an APK, for example with AndroidStudio .drag the APK version of this project to your Android device and run it from your device.
+Create an APK, for example with AndroidStudio. Drag the APK version of this project to your Android device and run it from your device.
