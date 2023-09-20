@@ -2,7 +2,7 @@
 
 ### Project Title
 Financial Dashboard System (Android App)
-_Beta version_
+Beta version
 ### Project Description
 The Financial Dashboard System is an Android app designed to help users track and manage their financial data effectively. The app consolidates data from various sources such as accounting systems, financial software, and other data repositories, and presents it in a visually appealing and easy-to-understand format. Users can monitor key financial metrics, track expenses, sales, and profits, and make informed decisions to meet and outperform their financial objectives.
 
