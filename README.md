@@ -1,6 +1,9 @@
 ## Financial Dashboard System README
 
 ### Project Title
+
+Note: It is an old version that will be restructured soon.
+
 Financial Dashboard System (Android App)
 Beta version
 ### Project Description
