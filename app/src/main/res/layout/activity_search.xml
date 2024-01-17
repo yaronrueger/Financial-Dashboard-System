@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.example.dashboardmobileapp.Adapter.CustomSwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayoutSearch"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#090909"
+    tools:context=".Activities.SearchActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#090909"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbarSearch"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/toolbar_menu"
+            app:labelVisibilityMode="labeled"
+            app:titleTextColor="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            >
+
+            <TextView
+                android:id="@+id/profilIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text=""
+                android:textStyle="bold | italic"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/profileicon"
+                />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/incomeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:text="Income"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expenseText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Expense"
+            android:textAlignment="center"
+            android:textColor="#BFBFBF"
+            android:textSize="30dp"/>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="55dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/searchList"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationViewSearch"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="#090909"
+                app:itemRippleColor="#BFBFBF"
+                app:itemIconTint="@color/white"
+                app:itemTextColor="@color/white"
+                app:itemTextAppearanceActiveBoldEnabled="false"
+                app:itemActiveIndicatorStyle="@android:color/transparent"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottomappbar_menu"
+                android:layout_gravity="bottom"/>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</com.example.dashboardmobileapp.Adapter.CustomSwipeRefreshLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="82dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/view_holder_background">
+
+    <TextView
+        android:id="@+id/addNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:text="title"
+        android:maxEms="10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/addPriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0000€"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/addNameText"
+        app:layout_constraintTop_toBottomOf="@+id/addNameText" />
+
+    <TextView
+        android:id="@+id/addchangePercentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="+10%"
+        android:textColor="#12c737"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/addPriceText"
+        app:layout_constraintStart_toEndOf="@+id/addPriceText"
+        app:layout_constraintTop_toBottomOf="@+id/addNameText" />
+
+    <com.majorik.sparklinelibrary.SparkLineLayout
+        android:id="@+id/addSparkLineLayout"
+        android:layout_width="143dp"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addView"
+        app:layout_constraintStart_toEndOf="@+id/addchangePercentText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:s_line_color="#fed32c"
+        app:s_line_thickness="2dp"
+        app:s_marker_background_color="#fed32c"
+        app:s_marker_width="8dp" />
+
+    <ImageView
+        android:id="@+id/addView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="25dp"
+        app:srcCompat="@drawable/add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

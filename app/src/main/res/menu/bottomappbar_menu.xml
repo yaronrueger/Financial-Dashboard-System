@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/incomeItem"
+        android:icon="@drawable/receive"
+        android:title="Income"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/expenseItem"
+        android:icon="@drawable/send"
+        android:title="Expense"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/homeItem"
+        android:icon="@drawable/home"
+        android:title="Home"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/addItem"
+        android:icon="@drawable/favorite"
+        android:title="Favorite"
+        app:showAsAction="always" />
+
+</menu>

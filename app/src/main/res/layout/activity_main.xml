@@ -1,64 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.dashboardmobileapp.Adapter.CustomSwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/background">
+    android:background="#090909"
+    tools:context=".Activities.MainActivity">
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="365dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="68dp"
-        android:textColor="@color/white"
-        />
+        android:orientation="vertical"
+        android:background="#090909"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbarMain"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/toolbar_menu"
+            app:labelVisibilityMode="labeled"
+            app:titleTextColor="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="194dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="108dp"
-        android:gravity="center"
-        android:text="ExcelReader"
-        android:textColor="@color/white"
-        android:textSize="27dp" />
+            <TextView
+                android:id="@+id/profilIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text=""
+                android:textStyle="bold | italic"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/profileicon"
+                />
+        </com.google.android.material.appbar.MaterialToolbar>
 
-    <TextView
-        android:id="@+id/textViewAdd"
-        android:layout_width="159dp"
-        android:layout_height="49dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="107dp"
-        android:layout_marginEnd="70dp"
-        android:gravity="center"
-        android:text="Datei auswählen"
-        android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="98dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="231dp"
-        android:backgroundTint="#3d3d3d"
-        android:text="Add"
-        android:textColor="@color/white"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-</RelativeLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lineChartContainer"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total cash"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cashYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/favoritesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+                app:layout_constraintEnd_toEndOf="@+id/lineChartContainer"
+                app:layout_constraintStart_toStartOf="@+id/lineChartContainer"
+                app:layout_constraintTop_toBottomOf="@+id/lineChartContainer">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutfavorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/favoritesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Finance activites"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/refreshButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/refresh" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/favoritesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutfavorites" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="#090909"
+        app:itemRippleColor="#BFBFBF"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:itemTextAppearanceActiveBoldEnabled="false"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottomappbar_menu"
+        android:layout_gravity="bottom"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</com.example.dashboardmobileapp.Adapter.CustomSwipeRefreshLayout>

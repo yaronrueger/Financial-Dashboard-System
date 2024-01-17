@@ -1,0 +1,13 @@
+<!-- res/menu/toolbar_menu.xml -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:background="http://schemas.android.com/tools">
+    <!-- Single menu item -->
+    <item
+        android:id="@+id/logoutItem"
+        android:icon="@drawable/logout"
+        android:title="Log-out"
+        app:showAsAction="ifRoom" />
+
+</menu>
